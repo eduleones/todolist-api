@@ -5,7 +5,7 @@ import pytest
 pytestmark = pytest.mark.anyio
 
 
-class TestAPIHealthCheck:
+class TestHealthCheckAPI:
     async def test_health_check(self, async_client):
         response = await async_client.get(
             "/healthcheck",

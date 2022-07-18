@@ -25,6 +25,8 @@ authors = [ "O Boticario <you@example.com>" ]
   hiredis = "^2.0.0"
   httpx = "^0.22.0"
   dependency-injector = "^4.39.1"
+  sqlmodel = "^0.0.6"
+  SQLAlchemy-Utils = "^0.38.3"
 
     [tool.poetry.dependencies.pydantic]
     version = "^1.8.2"
