@@ -20,14 +20,6 @@ class Adapters(containers.DeclarativeContainer):
     )
 
 
-class TestAdapters(containers.DeclarativeContainer):
-    db = providers.Singleton(Database, db_url="sqlite:///:memory:")
-    task_repository: TaskRepositoryInterface = providers.Factory(
-        TaskRepository,
-        session_factory=db.provided.session,
-    )
-
-
 class UseCases(containers.DeclarativeContainer):
     adapters = providers.DependenciesContainer()
 
@@ -39,11 +31,3 @@ class UseCases(containers.DeclarativeContainer):
         UpdateTask,
         task_repository=adapters.task_repository,
     )
-
-
-def get_adapter():
-    import os
-
-    if os.getenv("ENVIRONMENT") == "TEST":
-        return TestAdapters()
-    return Adapters()
