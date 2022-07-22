@@ -1,13 +1,15 @@
 import pytest
 from httpx import AsyncClient
 
-from todo.adapters.inbound.rest.containers import TestAdapters
-from todo.adapters.inbound.rest.main import app
+from todo.adapters.inbound.rest.containers import UseCases
+from todo.adapters.inbound.rest.factories import get_application
+from todo.adapters.inbound.rest.tests.containers import Adapters
 
 
 @pytest.fixture(scope="module")
 def fastapi_app():
-    return app
+    container = UseCases(adapters=Adapters())
+    return get_application(container=container)
 
 
 @pytest.fixture(scope="module")
@@ -25,9 +27,9 @@ def anyio_backend():
 
 @pytest.fixture(scope="module", autouse=True)
 def create_database():
-    TestAdapters.db().create_database()
+    Adapters.db().create_database()
 
 
 @pytest.fixture(scope="session")
 def task_repository():
-    return TestAdapters.task_repository()
+    return Adapters.task_repository()
